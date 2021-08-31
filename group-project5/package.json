@@ -1,12 +1,12 @@
 {
-  "name": "capstone-project5",
+  "name": "group-project5",
   "version": "1.0.0",
   "description": "",
-  "main": "monsterRouter.js",
+  "main": "server.js",
   "dependencies": {
     "express": "^4.17.1",
-    "mongoose": "^5.13.8",
-    "morgan": "^1.10.0"
+    "morgan": "^1.10.0",
+    "mongoose": "^5.12.14"
   },
   "devDependencies": {},
   "scripts": {

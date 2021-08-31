@@ -1,12 +1,10 @@
 const express = require("express")
 const monsterRouter = express.Router()
-const Monster = require("../capstone-project5/monsterSchema.js")
-const monstersData = require("./monstersData.js")
+const Monster = require("../models/monsterSchema")
+// const monstersData = require("./monstersData.js")
 
 
 monsterRouter.get("/", (req, res, next) => {
-    console.log(Monster)
-    console.log(monstersData)
         Monster.find((err, monsters) => {
             if(err){
                 res.status(500)

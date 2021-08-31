@@ -1,17 +1,23 @@
 const express = require("express")
 const app = express()
-const monsterRouter = require("./monsterRouter")
+const monsterRouter = require("./routes/monsterRouter")
 const mongoose = require("mongoose")
 const morgan = require("morgan")
 
-app.use(
-    "/monsters", 
-    express.json(),
-    morgan("dev"), 
-    (req, res, next) => {
-    console.log("MIDDLEWARE")
-    next()
-})
+// app.use("/monsters", 
+//     express.json(),
+//     morgan("dev"), 
+//     (req, res, next) => {
+//     console.log("MIDDLEWARE")
+//     next()
+// })
+
+app.use(express.json())
+app.use(morgan("dev"))
+// app.use("/monsters", (res, res, next) => {
+//     console.log("MIDDIEWARE!")
+//     next()
+// })
 
 mongoose.connect("mongodb://localhost:27017/monstersdb",
 {
