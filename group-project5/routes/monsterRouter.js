@@ -1,9 +1,9 @@
 const express = require("express")
 const monsterRouter = express.Router()
 const Monster = require("../models/monsterSchema")
-// const monstersData = require("./monstersData.js")
 
 
+// get all
 monsterRouter.get("/", (req, res, next) => {
         Monster.find((err, monsters) => {
             if(err){
@@ -13,7 +13,7 @@ monsterRouter.get("/", (req, res, next) => {
             return res.status(200).send(monsters)
         })
     })
-
+    // create
     .post("/", (req, res, next) => {
         const newMonster = new Monster(req.body)
         newMonster.save((err, savedMonster) => {
@@ -24,7 +24,7 @@ monsterRouter.get("/", (req, res, next) => {
                 return res.status(201).send(savedMonster)
         })
     })
-
+    // get one
     .get("/:monsterId", (req, res, next) => {
         Monster.findOne({_id: req.params.monsterId}, (err, monster)=> {
             if(err){
@@ -34,7 +34,7 @@ monsterRouter.get("/", (req, res, next) => {
             return res.status(200).send(monster)
         })
     })
-
+    // update
     .put("/:monsterId", (req, res, next) => {
         Monster.findOneAndUpdate(
             {_id: req.params.monsterId},
@@ -48,6 +48,30 @@ monsterRouter.get("/", (req, res, next) => {
                 return res.status(201).send(updatedMonster)
             }
         )
+    })
+
+    // delete one
+    .delete("/:monsterId", (req, res, next) => {
+        Monster.findOneAndDelete(
+            {_id: req.params.monsterId},
+            (err, deletedMonster) => {
+                if(err){
+                    res.status(500)
+                    return next(err)
+                }
+                res.status(201).send(`successfully deleted ${deletedMonster.species} from the databse!`)
+            }
+        )
+    })
+    // delete all
+    .delete("/", (req, res, next) => {
+        Monster.deleteMany((err, deletedMonsters) => {
+            if(err){
+                res.status(500)
+                return next(err)
+            }
+            res.status(201).send(`successfully deleted ${deletedMonsters}!`)
+        })
     })
 
 // fake data test
@@ -64,3 +88,4 @@ monsterRouter.get("/", (req, res, next) => {
 
 
 module.exports = monsterRouter
+
